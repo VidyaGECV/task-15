@@ -1,0 +1,81 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Array Operations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 600px;
+    }
+    input, button {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      border-left: 5px solid rgb(42, 174, 16);
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .output {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #19bce5;
+      background-color: #f0f0f0;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Interactive JavaScript Array Operations</h1>
+
+  <!-- Input fields -->
+  <label>Enter Array 1 (comma separated):</label>
+  <input type="text" id="array1Input" placeholder="e.g. 5,2,9,1,7">
+
+  <label>Enter Array 2 (comma separated):</label>
+  <input type="text" id="array2Input" placeholder="e.g. 10,20,30">
+
+  <!-- Buttons -->
+  <button id="sortBtn">Sort Array 1</button>
+  <div id="sortOutput" class="output"></div>
+
+  <button id="concatBtn">Concatenate Array 1 and Array 2</button>
+  <div id="concatOutput" class="output"></div>
+
+  <button id="removeBtn">Remove First Element of Array 1</button>
+  <div id="removeOutput" class="output"></div>
+
+  <script>
+    function parseInput(id) {
+      const input = document.getElementById(id).value;
+      return input.split(',').map(Number).filter(x => !isNaN(x));
+    }
+
+    document.getElementById('sortBtn').addEventListener('click', () => {
+      const arr1 = parseInput('array1Input');
+      const sorted = [...arr1].sort((a, b) => a - b);
+      document.getElementById('sortOutput').innerText = 
+        Original Array 1: [${arr1}]\nSorted: [${sorted}];
+    });
+
+    document.getElementById('concatBtn').addEventListener('click', () => {
+      const arr1 = parseInput('array1Input');
+      const arr2 = parseInput('array2Input');
+      const concatenated = arr1.concat(arr2);
+      document.getElementById('concatOutput').innerText = 
+        Array 1: [${arr1}]\nArray 2: [${arr2}]\nConcatenated: [${concatenated}];
+    });
+
+    document.getElementById('removeBtn').addEventListener('click', () => {
+      const arr1 = parseInput('array1Input');
+      const removed = arr1.shift();
+      document.getElementById('removeOutput').innerText = 
+        Original: [${[removed, ...arr1]}]\nAfter Removing First: [${arr1}]\nRemoved Element: ${removed};
+    });
+  </script>
+
+</body>
+</html>
